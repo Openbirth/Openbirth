@@ -6,4 +6,10 @@ Openbirth is an open-source "Binding of Isaac" clone made in C++ with raylib. Th
 
 "The Binding of Isaac: Rebirth" uses Lua for mods, and isn't open source. Openbirth uses C++ and is open source. There really is no reason for this project other than "screw Lua" and "I love Isaac". 
 
+## Status of the project:
+- Afterbirth+ Mod Compatibility: 0%
+- Repentance Mod Compatibility: 0%
+- Ready to play: No.
+
+Please note that Openbirth is a WIP.
 
