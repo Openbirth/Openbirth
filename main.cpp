@@ -1,9 +1,8 @@
 #include <iostream>
 #include <raylib.h>
-#include "ConfigFiles.h"
-#include "defs.h"
-#include "Chardev.h"
-#include "Projectiles.h"
+#include "defs.hpp"
+#include "Chardev.hpp"
+#include "Projectiles.hpp"
 
 
 #pragma region
@@ -19,11 +18,10 @@ Openbirth::Characters::CharacterBuffer buffer{ {Mary, Terry} };
 #pragma endregion Defining Characters
 
 
-Openbirth::Yeetables::Projectile projectile;
+Openbirth::Yeetables::ProjectileBuffer projectileBuffer;
 
-
-
-Openbirth::Coordination::Direction teardir;
+int projectilesNumber=0;
+int stepsgonethru = 0;
 
 
 
@@ -35,7 +33,6 @@ int selectedCharacter;
 
 
 int main(int argc, char* argv[]) {
-    projectile.speed = 6;
     const int screenWidth = 800;
     const int screenHeight = 450;
     bool stillPlaying = true;
@@ -125,26 +122,57 @@ int main(int argc, char* argv[]) {
             if (IsKeyDown(KEY_W)) playerPosition.y--;
             if (IsKeyDown(KEY_D)) playerPosition.x++;
             if (IsKeyDown(KEY_A)) playerPosition.x--;
+            
+            while (stepsgonethru < projectilesNumber) {
+                if (projectileBuffer.projectiles[stepsgonethru].dir == Openbirth::Coordination::LEFT) projectileBuffer.projectiles[stepsgonethru].projectilePosition.x -= projectileBuffer.projectiles[stepsgonethru].speed;
+                if (projectileBuffer.projectiles[stepsgonethru].dir == Openbirth::Coordination::RIGHT) projectileBuffer.projectiles[stepsgonethru].projectilePosition.x += projectileBuffer.projectiles[stepsgonethru].speed;
+                if (projectileBuffer.projectiles[stepsgonethru].dir == Openbirth::Coordination::UP) projectileBuffer.projectiles[stepsgonethru].projectilePosition.y -= projectileBuffer.projectiles[stepsgonethru].speed;
+                if (projectileBuffer.projectiles[stepsgonethru].dir == Openbirth::Coordination::DOWN) projectileBuffer.projectiles[stepsgonethru].projectilePosition.y += projectileBuffer.projectiles[stepsgonethru].speed;
+                //projectileBuffer.projectiles[stepsgonethru].projectilePosition = Openbirth::Yeetables::CalculateTrajectory(projectileBuffer.projectiles[stepsgonethru]);
+                DrawCircleV(projectileBuffer.projectiles[stepsgonethru].projectilePosition, 5, SKYBLUE);
+                printf("supposed to render a tear\n");
+
+                printf("supposed to have finished step\n");
+                printf("%f, %f\n", projectileBuffer.projectiles[stepsgonethru].projectilePosition.x, projectileBuffer.projectiles[stepsgonethru].projectilePosition.y);
+                stepsgonethru++;
+            }
+
+            stepsgonethru = 0;
 
             if (IsKeyPressed(KEY_LEFT)) {
-                projectile.projectilePosition = playerPosition;
-            teardir = Openbirth::Coordination::Direction::LEFT;
+                projectileBuffer.projectiles[projectilesNumber].projectilePosition = playerPosition;
+                projectileBuffer.projectiles[projectilesNumber].type = Openbirth::Yeetables::TEAR;
+                projectileBuffer.projectiles[projectilesNumber].speed = 0;
+                projectileBuffer.projectiles[projectilesNumber].dir = Openbirth::Coordination::LEFT;
+                projectilesNumber++;
+                printf("Cried a tear\n");
             }
             if (IsKeyPressed(KEY_RIGHT)) {
-                projectile.projectilePosition = playerPosition;
-                teardir = Openbirth::Coordination::Direction::RIGHT;
-            }if (IsKeyPressed(KEY_UP)) {
-                projectile.projectilePosition = playerPosition;
-                teardir = Openbirth::Coordination::Direction::UP;
-            }if (IsKeyPressed(KEY_DOWN)) {
-                projectile.projectilePosition = playerPosition;
-                teardir = Openbirth::Coordination::Direction::DOWN;
+                projectileBuffer.projectiles[projectilesNumber].projectilePosition = playerPosition;
+                projectileBuffer.projectiles[projectilesNumber].type = Openbirth::Yeetables::TEAR;
+                projectileBuffer.projectiles[projectilesNumber].speed = 0;
+                projectileBuffer.projectiles[projectilesNumber].dir = Openbirth::Coordination::RIGHT;
+                projectilesNumber++;
+                printf("Cried a tear\n");
             }
-
-            projectile.projectilePosition = Openbirth::Yeetables::CalculateTrajectory(teardir, projectile);
-
-            DrawCircleV(projectile.projectilePosition, 10, SKYBLUE);
-
+            if (IsKeyPressed(KEY_UP)) {
+                projectileBuffer.projectiles[projectilesNumber].projectilePosition = playerPosition;
+                projectileBuffer.projectiles[projectilesNumber].type = Openbirth::Yeetables::TEAR;
+                projectileBuffer.projectiles[projectilesNumber].speed = 0;
+                projectileBuffer.projectiles[projectilesNumber].dir = Openbirth::Coordination::UP;
+                projectilesNumber++;
+                printf("Cried a tear\n");
+            }
+            if (IsKeyPressed(KEY_DOWN)) {
+                projectileBuffer.projectiles[projectilesNumber].projectilePosition = playerPosition;
+                projectileBuffer.projectiles[projectilesNumber].type = Openbirth::Yeetables::TEAR;
+                projectileBuffer.projectiles[projectilesNumber].speed = 0;
+                projectileBuffer.projectiles[projectilesNumber].dir = Openbirth::Coordination::DOWN;
+                projectilesNumber++;
+                printf("Cried a tear\n");
+            }
+           
+            
             break;
         }
 

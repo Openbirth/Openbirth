@@ -154,15 +154,14 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ConfigFiles.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Chardev.h" />
-    <ClInclude Include="ConfigFiles.h" />
-    <ClInclude Include="Coordination.h" />
-    <ClInclude Include="defs.h" />
-    <ClInclude Include="Projectiles.h" />
+    <ClInclude Include="Chardev.hpp" />
+    <ClInclude Include="Coordination.hpp" />
+    <ClInclude Include="defs.hpp" />
+    <ClInclude Include="Presets.hpp" />
+    <ClInclude Include="Projectiles.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
