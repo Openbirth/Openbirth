@@ -160,7 +160,9 @@
   <ItemGroup>
     <ClInclude Include="Chardev.h" />
     <ClInclude Include="ConfigFiles.h" />
+    <ClInclude Include="Coordination.h" />
     <ClInclude Include="defs.h" />
+    <ClInclude Include="Projectiles.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
